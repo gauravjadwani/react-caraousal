@@ -6,6 +6,10 @@ class CustomTable extends React.Component<
   {
   }
 > {
+  constructor(props:any){
+    super(props);
+
+  }
 //   constructor(props: any) {
 //     super(props);
 //     this.state = {
@@ -23,6 +27,30 @@ class CustomTable extends React.Component<
           <List/>
       </div>
     );
+  }
+  public componentDidMount(){
+    const lazyImages:any=document.querySelectorAll('.lazy-image');
+    console.log('lazyImages',lazyImages)
+    const options={
+      root:document.querySelector('.makeStyles-gridList-2'),
+      rootMargin:'0px 0px 200px 0px'
+    }
+    function onIntersection(imagesEntities: { forEach: (arg0: (image: any) => void) => void; }){
+      console.log('onIntersection',imagesEntities);
+      imagesEntities.forEach(image => {
+        if(image.isIntersecting){ 
+          observer.unobserve(image.target);
+          console.log('isIntersecting',image);
+          image.target.src=image.target.dataset.src;
+          image.target.onload = () => image.target.classList.add('loaded')
+        }
+      });
+    }
+    let observer=new IntersectionObserver(onIntersection,options);
+    console.log('observer',observer)
+    lazyImages.forEach((image: Element) => {
+      observer.observe(image);
+    });
   }
 }
 export default CustomTable;
