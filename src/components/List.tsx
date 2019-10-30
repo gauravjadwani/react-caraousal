@@ -24,9 +24,7 @@ export default class SingleLineGridList extends React.Component<
 
   }
   public leftSmoothScroll(target:any){
-    console.log('clicked',target)
     target=target.current;
-    console.log('scrollContainer.childNodes[0]',target.childNodes[0])
       let scrollContainer:any = target;
       do { //find scroll container
           // scrollContainer = scrollContainer.childNodes[0];
