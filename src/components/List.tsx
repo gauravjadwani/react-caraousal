@@ -10,12 +10,12 @@ import tileData from './../store1.json';
 import { render } from 'react-dom';
 import { Button } from '@material-ui/core';
 import { thisExpression } from '@babel/types';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 export default class SingleLineGridList extends React.Component<
   {},
-  {
-    cl:any
-  }
+  any
   > {
   cl: React.RefObject<unknown>;
   constructor(props: any) {
@@ -23,7 +23,7 @@ export default class SingleLineGridList extends React.Component<
     this.cl=React.createRef()
 
   }
-  public SmoothScroll(target:any){
+  public leftSmoothScroll(target:any){
     console.log('clicked',target)
     target=target.current;
     console.log('scrollContainer.childNodes[0]',target.childNodes[0])
@@ -44,12 +44,13 @@ export default class SingleLineGridList extends React.Component<
           i++; 
           if (i > 30) 
             return;
-          console.log(c.left)
-          c.scrollLeft = a + (b - a) / 30 * i;
+          console.log('c.left',c.left)
+          c.scrollLeft = a + (b + a) / 30 * i;
           setTimeout(function(){ scroll(c, a, b, i); }, 20);
       }
       // start scrolling
-      // scroll(scrollContainer, scrollContainer.scrollLeft, targetY, 0);
+      console.log('scrollinggg',scrollContainer,targetY)
+      scroll(scrollContainer, scrollContainer.scrollLeft, targetY, 0);
   }
   public renderElement=()=>{
     const styleRoot:any={
@@ -93,7 +94,7 @@ export default class SingleLineGridList extends React.Component<
           </GridListTile>
         ))}
       </GridList>
-      <button onClick={()=>this.SmoothScroll(this.cl)}>clickme</button>
+      <button onClick={()=>this.leftSmoothScroll(this.cl)} className={'Right-Scroll-Button'}>left</button>
     </div>
     )
   }
